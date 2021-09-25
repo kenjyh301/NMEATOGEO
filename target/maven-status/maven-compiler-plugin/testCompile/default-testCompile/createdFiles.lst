@@ -1,0 +1,4 @@
+Config\ReadConfigTest.class
+service\TTMMessageServiceTest.class
+service\CommonServiceTest.class
+service\GPSMessageServiceTest.class
