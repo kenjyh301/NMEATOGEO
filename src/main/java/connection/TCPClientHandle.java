@@ -66,6 +66,7 @@ public class TCPClientHandle extends ChannelInboundHandlerAdapter {
             for(String piece:buffer){
                 message+=piece;
             }
+            message = message.replace("\n", "").replace("\r", "");
             buffer.clear();
             if(message.length()<messageLenMax&&message.length()>0){
                 NMEAMessage nmeaMessage= new NMEAMessage(message);
