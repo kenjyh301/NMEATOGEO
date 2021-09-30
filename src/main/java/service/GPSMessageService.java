@@ -23,8 +23,15 @@ public class GPSMessageService {
             String latPartStr= messageService.GetValue(1);
             GlobalPoint.LongPart longPart= GlobalPoint.LongPart.valueOf(longPartStr);
             GlobalPoint.LatPart latPart= GlobalPoint.LatPart.valueOf(latPartStr);
-            return new GlobalPoint(GetDegreeFromString(longStr,3),GetDegreeFromString(latStr,2)
-                    ,longPart,latPart);
+            float longitude=GetDegreeFromString(longStr,3);;
+            float latitude=GetDegreeFromString(latStr,2);
+            if(longPart== GlobalPoint.LongPart.W){
+                longitude= -longitude;
+            }
+            if(latPart== GlobalPoint.LatPart.S){
+                latitude=-latitude;
+            }
+            return new GlobalPoint(longitude,latitude);
         }catch (Exception e){
             log.info("Index not found");
             e.printStackTrace();

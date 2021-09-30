@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class GlobalPoint {
     public enum LongPart{
         E,
@@ -17,12 +16,8 @@ public class GlobalPoint {
     }
     public  GlobalPoint(float longitude,float latitude){
         this.longitude=longitude;
-        this.longitude= latitude;
-        this.longPart= LongPart.E;
-        this.latPart= LatPart.N;
+        this.latitude= latitude;
     }
     float longitude;
     float latitude;
-    LongPart longPart;
-    LatPart latPart;
 }
