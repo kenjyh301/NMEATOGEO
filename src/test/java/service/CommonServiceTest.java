@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import model.GlobalPoint;
 import model.NMEAMessage;
 import model.RadarPoint;
+import net.sf.geographiclib.Geodesic;
 import net.sf.geographiclib.GeodesicData;
 
 import java.nio.charset.StandardCharsets;
@@ -31,7 +32,6 @@ public class CommonServiceTest extends TestCase {
         CommonService commonService= new CommonService();
         GeodesicData data= commonService.GetGeodesicData(globalPoint,radarPoint);
         GlobalPoint outPoint= commonService.GetSecondPoint(data);
-        log.info("{} {}",outPoint.getLongPart().name(),outPoint.getLatPart().name());
 
 //        log.info("Longitude point1 {} : Latitude point1 {}",globalPoint.getLongitude(),globalPoint.getLatitude());
 
