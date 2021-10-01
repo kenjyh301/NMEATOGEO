@@ -1,6 +1,7 @@
 ## Table of contents
 * Info
 * Build with
+* Test result
 
 ## Info
 * Project handle NMEA message of type $GPGLL and $TTM
@@ -22,6 +23,7 @@
 ~~~~
 ## Test result
 ![img_2.png](img_2.png)
+* The result show that over 264 samples the MSE value of long,lat is **_1.3e-8_** when the highest value is only **_2.1e-4_**. 
 
 
 	
