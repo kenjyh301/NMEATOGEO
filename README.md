@@ -6,7 +6,8 @@
 * Project handle NMEA message of type $GPGLL and $TTM
   ~~~~
   $GPGLL is GPS message send position of ship in longitude and latitude. GPS info update immediately
-  $TTM con
+  $TTM is message contain target position in distance and bearing
+  $TLL is message contain target position in latitude and longtitude
 
 * Calculate position of targets in WGS84 system before using cat34-48 to send. Targets in WGS84 was stored in outQueue.
 * Message input protocol is TCP-IP. Messages was sent from TCP server with host and port value in application.properties. Changing config value in resources folder was applied when rebuild program or change value on file in targets folder without rebuild
@@ -20,7 +21,7 @@
     * Libraries : marine-api and geographiclib
 ~~~~
 ## Test result
-![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 
 
 	

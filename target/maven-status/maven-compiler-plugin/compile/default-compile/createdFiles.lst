@@ -12,5 +12,6 @@ service\TargetService.class
 model\GlobalPoint$LatPart.class
 model\DataQueue.class
 model\NMEAMessage.class
+service\TLLMessageService.class
 Config\ReadConfig.class
 connection\TCPClientHandle.class
