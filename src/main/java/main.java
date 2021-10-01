@@ -8,7 +8,7 @@ import service.TargetService;
 public class main {
     public static void main(String[] argv)  {
         TargetService targetService= new TargetService();
-        TCPClient tcpClient= new TCPClient(ReadConfig.projectConfig.getTCPhost(),ReadConfig.projectConfig.getTCPPort());
+        TCPClient tcpClient= new TCPClient(ReadConfig.projectConfig.getTCPHost(),ReadConfig.projectConfig.getTCPPort());
         tcpClient.start();
         targetService.start();
         try{

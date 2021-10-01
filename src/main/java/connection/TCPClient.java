@@ -53,11 +53,8 @@ public class TCPClient extends Thread {
                         future= bootstrap.connect(host,port).sync();
                         log.info("Server {}:{} opened",host,port);
                         future.channel().closeFuture().sync();
-
-//                        break;
                     }catch (Exception e){
                         Thread.sleep(3000);
-//                    e.printStackTrace();
                     }
                 }
 
@@ -66,7 +63,5 @@ public class TCPClient extends Thread {
 
             }
 
-//            Thread.sleep(1000);
-//        }
     }
 }

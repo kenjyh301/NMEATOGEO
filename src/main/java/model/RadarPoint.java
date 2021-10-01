@@ -8,4 +8,5 @@ import lombok.Data;
 public class RadarPoint {
     float range;
     float azimuth;
+    int targetNumber;
 }

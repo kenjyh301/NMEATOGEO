@@ -17,7 +17,14 @@ public class GlobalPoint {
     public  GlobalPoint(float longitude,float latitude){
         this.longitude=longitude;
         this.latitude= latitude;
+        this.targetNumber=0;
     }
+    public  GlobalPoint(float longitude,float latitude,int targetNumber){
+        this.longitude=longitude;
+        this.latitude= latitude;
+        this.targetNumber= targetNumber;
+    }
+    int targetNumber;
     float longitude;
     float latitude;
 }

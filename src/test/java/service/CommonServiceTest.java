@@ -31,7 +31,7 @@ public class CommonServiceTest extends TestCase {
 
         CommonService commonService= new CommonService();
         GeodesicData data= commonService.GetGeodesicData(globalPoint,radarPoint);
-        GlobalPoint outPoint= commonService.GetSecondPoint(data);
+        GlobalPoint outPoint= commonService.GetSecondPoint(data,radarPoint.getTargetNumber());
 
 //        log.info("Longitude point1 {} : Latitude point1 {}",globalPoint.getLongitude(),globalPoint.getLatitude());
 

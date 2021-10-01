@@ -16,8 +16,8 @@ public class CommonService {
                                      radarPoint.getAzimuth(),radarPoint.getRange());
     }
 
-    public GlobalPoint GetSecondPoint(GeodesicData data){
-        return new GlobalPoint((float)data.lon2,(float)data.lat2);
+    public GlobalPoint GetSecondPoint(GeodesicData data,int targetNumber){
+        return new GlobalPoint((float)data.lon2,(float)data.lat2,targetNumber);
     }
 
 

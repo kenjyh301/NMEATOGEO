@@ -39,7 +39,7 @@ public class TCPClientHandle extends ChannelInboundHandlerAdapter {
         ByteBuf byteBuf= (ByteBuf) msg;
         byte[] bytes= ByteBufUtil.getBytes(byteBuf);
         String str= new String(bytes, StandardCharsets.UTF_8);
-        log.info("Receive new tcp message {}",str);
+        log.trace("Receive new tcp message {}",str);
 //        System.out.print(str);
         Process(bytes);
 

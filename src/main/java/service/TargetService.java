@@ -8,13 +8,30 @@ import model.NMEAMessage;
 import model.RadarPoint;
 import net.sf.geographiclib.GeodesicData;
 
-import static model.DataQueue.outTargetQueue;
-import static model.DataQueue.receiveMessageQueue;
+
+import java.util.*;
+
+import static java.lang.Math.abs;
+import static model.DataQueue.*;
 
 @Slf4j
 public class TargetService extends Thread {
     GlobalPoint ownShipGPS=null;
     CommonService commonService;
+
+    GlobalPoint resultPoint= new GlobalPoint(0,0,-1);
+    float mse=0;
+    List<Float> errorList= new ArrayList<>();
+
+    float MSE(List<Float> errors){
+        int count= errors.size();
+        float ret=0;
+        for (float value:errors) {
+            ret+=value*value;
+        }
+        return (ret/count);
+    }
+
     public TargetService(){
         commonService= new CommonService();
     }
@@ -25,6 +42,8 @@ public class TargetService extends Thread {
         while(true){
             if(!receiveMessageQueue.isEmpty()){
                 NMEAMessage nmeaMessage= receiveMessageQueue.poll();
+
+
                 try{
                     NMEAMessageService service= new NMEAMessageService(nmeaMessage);
                     if(service.IsValid()){
@@ -34,6 +53,7 @@ public class TargetService extends Thread {
 
                     }
                 }catch (Exception e){
+                    e.printStackTrace();
                     log.warn("Invalid data {}",nmeaMessage.getMessage());
                 }
 
@@ -44,6 +64,8 @@ public class TargetService extends Thread {
     }
 
     private void HandleMessage(NMEAMessageService service) {
+
+
         switch (service.GetSentenceID()) {
             case "GLL":
                 GPSMessageService gpsMessageService = new GPSMessageService(service);
@@ -59,18 +81,41 @@ public class TargetService extends Thread {
                     TTMMessageService ttmMessageService = new TTMMessageService(service);
                     RadarPoint radarPoint = ttmMessageService.GetPolar();
                     GeodesicData data=commonService.GetGeodesicData(ownShipGPS,radarPoint);
-                    GlobalPoint targetPlot= commonService.GetSecondPoint(data);
+                    GlobalPoint targetPlot= commonService.GetSecondPoint(data,radarPoint.getTargetNumber());
+
+
+
+
                     outTargetQueue.add(targetPlot);
-                    log.info("Add new to out queues. Queue size {}",outTargetQueue.size());
                     log.info("New TTM message Range {}  azimuth {}", radarPoint.getRange(), radarPoint.getAzimuth());
+                    log.info("Add new to out queues lat:{} long:{}. Queue size {}",targetPlot.getLatitude(),targetPlot.getLongitude(),outTargetQueue.size());
+                    //using for test
+                    if(targetPlot.getTargetNumber()==resultPoint.getTargetNumber()){
+                        float diffLong= abs(targetPlot.getLongitude()-resultPoint.getLongitude());
+                        float diffLat= abs(targetPlot.getLatitude()-resultPoint.getLatitude());
+                        errorList.add(diffLong+diffLat);
+                        log.info("Evaluate error mse:{} highest value {}",MSE(errorList), Collections.max(errorList));
+                    }
+                    ///////////////////
                 }else{
                     log.info("Missing TTM message because GPS is null");
                 }
                 // if null do nothing
                 break;
 
+            // Processing TLL for test calculate algorithm
+            case "TLL":
+                if(ownShipGPS!=null){
+                    TLLMessageService tllMessageService = new TLLMessageService(service);
+                    resultPoint = tllMessageService.GetGeodetic();
+                    log.info("New TLL message lat:{} long{}",resultPoint.getLatitude(),resultPoint.getLongitude());
+                }else{
+                    log.info("Missing TLL message because GPS is null");
+                }
+                break;
+
             default:
-                log.info("{} Not common message", service.GetSentenceID());
+                log.trace("{} Not common message", service.GetSentenceID());
         }
     }
 }

@@ -12,7 +12,7 @@ import java.util.Properties;
 public class ReadConfig {
     Properties properties;
     int TCPPort;
-    String TCPhost;
+    String TCPHost;
     public static ReadConfig projectConfig;
     static{
         try {
@@ -27,7 +27,7 @@ public class ReadConfig {
         if(inputStream!=null){
             properties.load(inputStream);
             TCPPort= Integer.parseInt(properties.getProperty("TCP.Port"));
-            TCPhost= properties.getProperty("TCP.Host");
+            TCPHost= properties.getProperty("TCP.Host");
         }
     }
 }
