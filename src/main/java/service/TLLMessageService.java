@@ -36,7 +36,7 @@ public class TLLMessageService {
             if (latPart == GlobalPoint.LatPart.S) {
                 latitude = -latitude;
             }
-            return new GlobalPoint(longitude, latitude,Integer.parseInt(targetNumberStr));
+            return new GlobalPoint(longitude, latitude,Integer.parseInt(targetNumberStr),(float)0.0,(float)0.0);
         } catch (Exception e) {
             log.info("Index not found");
             e.printStackTrace();

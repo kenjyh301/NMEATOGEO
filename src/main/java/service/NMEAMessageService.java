@@ -7,13 +7,19 @@ import net.sf.marineapi.nmea.parser.SentenceParser;
 @Slf4j
 public class NMEAMessageService extends SentenceParser {
 //    SentenceParser parser;
+    String message;
 
     public NMEAMessageService(NMEAMessage message){
-       super(message.getMessage());
+        super(message.getMessage());
+        this.message= message.getMessage();
     }
 
     public boolean IsValid(){
         return super.isValid();
+    }
+
+    public String GetMessage(){
+        return message;
     }
 
     public char GetBeginChar(){
