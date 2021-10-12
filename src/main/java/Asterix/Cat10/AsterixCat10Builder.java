@@ -3,10 +3,7 @@ package Asterix.Cat10;
 import io.netty.buffer.ByteBufUtil;
 import jlg.jade.asterix.cat034.Cat034Item000;
 import jlg.jade.asterix.cat034.Cat034Item041;
-import jlg.jade.asterix.cat048.Cat048Item010;
-import jlg.jade.asterix.cat048.Cat048Item060;
-import jlg.jade.asterix.cat048.Cat048Item140;
-import jlg.jade.asterix.cat048.Cat048Item200;
+import jlg.jade.asterix.cat048.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import model.GlobalPoint;
@@ -30,6 +27,7 @@ public class AsterixCat10Builder {
     private Cat010Item041 item041;
     private Cat010Item200 item200;
     private Cat010Item161 item161;
+//    private Cat048Item170 item170;
     byte[] fspec;
     int fspecEndIndex;  //number used bytes in fspec
     private final int CATSIZE=1;
@@ -69,6 +67,7 @@ public class AsterixCat10Builder {
         item161= new Cat010Item161();
         SetFspec(Fspec.CAT10_161);
         SetFspecFx();
+
     }
 
     public AsterixCat10Builder SetDataSourceIdentifier(int sic,int sac){

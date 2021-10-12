@@ -13,6 +13,7 @@ public class ReadConfig {
     Properties properties;
     int TCPPort;
     String TCPHost;
+    int TCPServerPort;
     public static ReadConfig projectConfig;
     static{
         try {
@@ -28,6 +29,7 @@ public class ReadConfig {
             properties.load(inputStream);
             TCPPort= Integer.parseInt(properties.getProperty("TCP.Port"));
             TCPHost= properties.getProperty("TCP.Host");
+            TCPServerPort= Integer.parseInt(properties.getProperty("TCPServerPort","5353"));
         }
     }
 }

@@ -1,6 +1,7 @@
 package service;
 
 import Asterix.Cat10.AsterixCat10Builder;
+import connection.TCPServer;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import model.GlobalPoint;
@@ -13,7 +14,12 @@ import static model.DataQueue.outTargetQueue;
 
 @Slf4j
 public class AsterixService extends Thread{
+    private TCPServer server;
 
+    public AsterixService(TCPServer server){
+        this.server= new TCPServer();
+        this.server=server;
+    }
     @SneakyThrows
     @Override
     public void run(){
@@ -23,7 +29,13 @@ public class AsterixService extends Thread{
                 AsterixCat10Builder builder= new AsterixCat10Builder();
                 builder= builder.SetGlobalPoint(processingPoint).SetDataSourceIdentifier(1,1);
                 byte[] cat10Record= builder.Build();
-                log.info("Encode data {}", Hex.encodeHexString(cat10Record));
+                try{
+                    server.sendMessage(new String(cat10Record));
+                    log.info("Encode data {}", Hex.encodeHexString(cat10Record));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }else{
                 Thread.sleep(100);
             }
