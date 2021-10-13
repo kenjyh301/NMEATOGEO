@@ -23,11 +23,12 @@ import java.util.Collections;
 public class AsterixCat10Builder {
     private Cat048Item010 item010;
     private Cat010Item000 item000;
+    private Cat010Item020 item020;
     private Cat010Item140 item140;
     private Cat010Item041 item041;
     private Cat010Item200 item200;
     private Cat010Item161 item161;
-//    private Cat048Item170 item170;
+    private Cat010Item170 item170;
     byte[] fspec;
     int fspecEndIndex;  //number used bytes in fspec
     private final int CATSIZE=1;
@@ -58,6 +59,8 @@ public class AsterixCat10Builder {
         SetFspec(Fspec.CAT10_010);
         item000= new Cat010Item000();
         SetFspec(Fspec.CAT10_000);
+        item020= new Cat010Item020();
+        SetFspec(Fspec.CAT10_020);
         item140= new Cat010Item140();
         SetFspec(Fspec.CAT10_140);
         item041= new Cat010Item041();
@@ -66,6 +69,8 @@ public class AsterixCat10Builder {
         SetFspec(Fspec.CAT10_200);
         item161= new Cat010Item161();
         SetFspec(Fspec.CAT10_161);
+        item170= new Cat010Item170();
+        SetFspec(Fspec.CAT10_170);
         SetFspecFx();
 
     }
@@ -107,6 +112,14 @@ public class AsterixCat10Builder {
         item161.setTrackNb(number);
         return this;
     }
+    public AsterixCat10Builder SetReportDesc(){
+        item020.setTyp(Cat010Item020.TYP.ModeSMultilateration);
+        return this;
+    }
+    public AsterixCat10Builder SetTrackStatus(){
+        item170.setCnf(Cat010Item170.CNF.TrackInInitialisationPhase);
+        return this;
+    }
     public AsterixCat10Builder SetGlobalPoint(GlobalPoint point){
         SetMessageType(Cat010Item000.MessageType.TARGET_REPORT);
         SetTimeOfDay();
@@ -124,9 +137,10 @@ public class AsterixCat10Builder {
     }
     public short GetMessageLength(){
         int ret= CATSIZE+ LENSIZE+ fspecEndIndex+ item010.getSizeInBytes()
-                + item000.getSizeInBytes()+ item140.getSizeInBytes()
-                + item041.getSizeInBytes()+ item200.getSizeInBytes()
-                +item161.getSizeInBytes();
+                + item000.getSizeInBytes()+ item020.getSizeInBytes()
+                + item140.getSizeInBytes() + item041.getSizeInBytes()
+                + item200.getSizeInBytes() +item161.getSizeInBytes()
+                +item170.getSizeInBytes();
         return (short)ret;
     }
 
@@ -154,6 +168,8 @@ public class AsterixCat10Builder {
         Collections.addAll(data,tmp);
         tmp= ArrayUtils.toObject(item000.encode());
         Collections.addAll(data,tmp);
+        tmp=ArrayUtils.toObject(item020.encode());
+        Collections.addAll(data,tmp);
         tmp= ArrayUtils.toObject(item140.encode());
         Collections.addAll(data,tmp);
         tmp= ArrayUtils.toObject(item041.encode());
@@ -161,6 +177,8 @@ public class AsterixCat10Builder {
         tmp= ArrayUtils.toObject(item200.encode());
         Collections.addAll(data,tmp);
         tmp= ArrayUtils.toObject(item161.encode());
+        Collections.addAll(data,tmp);
+        tmp= ArrayUtils.toObject(item170.encode());
         Collections.addAll(data,tmp);
 
         byte[] ret = new byte[data.size()];

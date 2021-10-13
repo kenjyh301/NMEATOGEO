@@ -14,10 +14,11 @@ public class AsterixCat10BuilderTest extends TestCase {
         byte[] cat010Record=builder.SetDataSourceIdentifier(1,1)
                 .SetMessageType(Cat010Item000.MessageType.EVENT_TRIGGERED_STATUS_MESSAGE)
                 .SetTimeOfDay(200).SetTrackHeading(100).SetTrackNumber(100)
-                .SetTrackVelocity(100).SetWGS84Coord(100,100).Build();
+                .SetTrackVelocity(100).SetWGS84Coord(100,100).
+                        SetReportDesc().SetTrackStatus().Build();
         System.out.println(Arrays.toString(cat010Record));
 
-        assertEquals(builder.GetMessageLength(),25);
+        assertEquals(builder.GetMessageLength(),27);
 //        Cat010Item000 item00=new Cat010Item000();
 //        item00.SetMessageType(Cat010Item000.MessageType.EVENT_TRIGGERED_STATUS_MESSAGE);
 //        try{

@@ -27,7 +27,8 @@ public class AsterixService extends Thread{
             if(!outTargetQueue.isEmpty()){
                 GlobalPoint processingPoint= outTargetQueue.poll();
                 AsterixCat10Builder builder= new AsterixCat10Builder();
-                builder= builder.SetGlobalPoint(processingPoint).SetDataSourceIdentifier(1,1);
+                builder= builder.SetGlobalPoint(processingPoint).SetDataSourceIdentifier(1,1)
+                                .SetReportDesc().SetTrackStatus();
                 byte[] cat10Record= builder.Build();
                 try{
                     server.sendMessage(new String(cat10Record));
