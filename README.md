@@ -1,6 +1,7 @@
 ## Table of contents
 * Info
 * Build with
+* Install  
 * Test result
 
 ## Info
@@ -20,6 +21,11 @@
     * Environment: Ubuntu18-Bionic
     * Project managerment tool: Maven
     * Libraries : marine-api and geographiclib
+~~~~
+## Install 
+* Install jade lib to maven
+~~~~
+mvn install:install-file -Dfile=./libs/jade/jade-0.9.36.jar -Dpomfile=./libs/jade/pom.xml
 ~~~~
 ## Test result
 ![img_2.png](img_2.png)
