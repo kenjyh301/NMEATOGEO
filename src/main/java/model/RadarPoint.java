@@ -9,4 +9,6 @@ public class RadarPoint {
     float range;
     float azimuth;
     int targetNumber;
+    float heading;     // degrees
+    float vesselSpeed; // knots
 }

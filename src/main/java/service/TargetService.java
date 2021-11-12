@@ -19,7 +19,8 @@ public class TargetService extends Thread {
     GlobalPoint ownShipGPS=null;
     CommonService commonService;
 
-    GlobalPoint resultPoint= new GlobalPoint(0,0,-1);
+    GlobalPoint resultPoint= new GlobalPoint(0,0,-1,(float)0.0,(float)0.0);
+    GlobalPoint targetPlotPending;
     float mse=0;
     List<Float> errorList= new ArrayList<>();
 
@@ -50,7 +51,6 @@ public class TargetService extends Thread {
                         HandleMessage(service);
                     }else{
                         log.info("NMEA message is not valid");
-
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -81,14 +81,14 @@ public class TargetService extends Thread {
                     TTMMessageService ttmMessageService = new TTMMessageService(service);
                     RadarPoint radarPoint = ttmMessageService.GetPolar();
                     GeodesicData data=commonService.GetGeodesicData(ownShipGPS,radarPoint);
-                    GlobalPoint targetPlot= commonService.GetSecondPoint(data,radarPoint.getTargetNumber());
-
-
-
+                    GlobalPoint targetPlot= commonService.GetSecondPoint(data,radarPoint.getTargetNumber(),
+                                            radarPoint.getHeading(),radarPoint.getVesselSpeed());
+                    log.info("New TTM message Range {}  azimuth {}", radarPoint.getRange(), radarPoint.getAzimuth());
 
                     outTargetQueue.add(targetPlot);
-                    log.info("New TTM message Range {}  azimuth {}", radarPoint.getRange(), radarPoint.getAzimuth());
-                    log.info("Add new to out queues lat:{} long:{}. Queue size {}",targetPlot.getLatitude(),targetPlot.getLongitude(),outTargetQueue.size());
+                    log.info("Add new to out queues lat:{} long:{} speed:{} heading:{}. Queue size {}"
+                            ,targetPlot.getLatitude(),targetPlot.getLongitude()
+                            ,targetPlot.getVesselSpeed(),targetPlot.getHeading(),outTargetQueue.size());
                     //using for test
                     if(targetPlot.getTargetNumber()==resultPoint.getTargetNumber()){
                         float diffLong= abs(targetPlot.getLongitude()-resultPoint.getLongitude());
@@ -114,8 +114,28 @@ public class TargetService extends Thread {
                 }
                 break;
 
+
+
+//            case "OSD":
+//                if(targetPlotPending!=null){
+//                    OSDMessageService osdMessageService= new OSDMessageService(service);
+//                    log.info("Receive new OSD message {}", service.GetMessage());
+//                    GlobalPoint targetPlot= osdMessageService.UpdateInfo(targetPlotPending);
+//                    outTargetQueue.add(targetPlot);
+//                    log.info("Receive new OSD message speed:{} heading:{}"
+//                            ,osdMessageService.getVesselSpeed(),osdMessageService.getHeading());
+//                    log.info("Add new to out queues lat:{} long:{} speed:{} heading:{}. Queue size {}"
+//                            ,targetPlot.getLatitude(),targetPlot.getLongitude()
+//                            ,targetPlot.getVesselSpeed(),targetPlot.getHeading(),outTargetQueue.size());
+//                    targetPlotPending=null;
+//                }else{
+//                    log.info("Not any pending plot drop OSD message");
+//                }
+//                break;
+
             default:
                 log.trace("{} Not common message", service.GetSentenceID());
+
         }
     }
 }

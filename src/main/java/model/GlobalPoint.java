@@ -19,12 +19,16 @@ public class GlobalPoint {
         this.latitude= latitude;
         this.targetNumber=0;
     }
-    public  GlobalPoint(float longitude,float latitude,int targetNumber){
+    public  GlobalPoint(float longitude,float latitude,int targetNumber,float heading,float vesselSpeed){
         this.longitude=longitude;
         this.latitude= latitude;
         this.targetNumber= targetNumber;
+        this.heading=heading;
+        this.vesselSpeed= vesselSpeed;
     }
     int targetNumber;
-    float longitude;
-    float latitude;
+    float longitude;       // degrees
+    float latitude;     // degrees
+    float heading;     // degrees
+    float vesselSpeed; // knots
 }
