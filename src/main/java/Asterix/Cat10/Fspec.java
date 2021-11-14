@@ -15,5 +15,12 @@ public class Fspec {
     public static final int CAT10_060=13;
     public static final int CAT10_220=14;
     public static final int CAT10_245=15;
+    public static final int CAT10_250=17;
+    public static final int CAT10_300=18;
+    public static final int CAT10_090=19;
+    public static final int CAT10_091=20;
+    public static final int CAT10_270=21;
+    public static final int CAT10_550=22;
+    public static final int CAT10_310=23;
 
 }

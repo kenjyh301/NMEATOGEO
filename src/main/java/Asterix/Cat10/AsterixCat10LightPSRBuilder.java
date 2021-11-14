@@ -1,26 +1,19 @@
 package Asterix.Cat10;
 
-import io.netty.buffer.ByteBufUtil;
-import jlg.jade.asterix.cat034.Cat034Item000;
-import jlg.jade.asterix.cat034.Cat034Item041;
 import jlg.jade.asterix.cat048.*;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import model.GlobalPoint;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 @Slf4j
 //@Data
-public class AsterixCat10Builder {
+public class AsterixCat10LightPSRBuilder {
     private Cat048Item010 item010;
     private Cat010Item000 item000;
     private Cat010Item020 item020;
@@ -52,7 +45,7 @@ public class AsterixCat10Builder {
         }
     }
 //    private Cat034Item000 test;
-    public AsterixCat10Builder(){
+    public AsterixCat10LightPSRBuilder(){
         fspec= new byte[5];
         Arrays.fill(fspec,(byte)0);
         item010= new Cat048Item010();
@@ -72,55 +65,54 @@ public class AsterixCat10Builder {
         item170= new Cat010Item170();
         SetFspec(Fspec.CAT10_170);
         SetFspecFx();
-
     }
 
-    public AsterixCat10Builder SetDataSourceIdentifier(int sic,int sac){
+    public AsterixCat10LightPSRBuilder SetDataSourceIdentifier(int sic, int sac){
         item010.setSic(sic);
         item010.setSac(sac);
         return this;
     }
-    public AsterixCat10Builder SetMessageType(Cat010Item000.MessageType type){
+    public AsterixCat10LightPSRBuilder SetMessageType(Cat010Item000.MessageType type){
         item000.SetMessageType(type);
         return this;
     }
-    public AsterixCat10Builder SetTimeOfDay(int time){
+    public AsterixCat10LightPSRBuilder SetTimeOfDay(int time){
         item140.setTime(time);
         return this;
     }
-    public AsterixCat10Builder SetTimeOfDay(){
+    public AsterixCat10LightPSRBuilder SetTimeOfDay(){
         LocalDateTime date = LocalDateTime.now();
         int seconds = date.toLocalTime().toSecondOfDay();
         item140.setTime(seconds);
         return this;
     }
 
-    public AsterixCat10Builder SetWGS84Coord(int latitude,int longitude){
+    public AsterixCat10LightPSRBuilder SetWGS84Coord(int latitude, int longitude){
         item041.setLatitudeWsg84(latitude);
         item041.setLongitudeWsg84(longitude);
         return this;
     }
-    public AsterixCat10Builder SetTrackVelocity(int value){
+    public AsterixCat10LightPSRBuilder SetTrackVelocity(int value){
         item200.setCalculatedGroundSpeed(value);
         return this;
     }
-    public AsterixCat10Builder SetTrackHeading(int value){
+    public AsterixCat10LightPSRBuilder SetTrackHeading(int value){
         item200.setCalculatedHeading(value);
         return this;
     }
-    public AsterixCat10Builder SetTrackNumber(int number){
+    public AsterixCat10LightPSRBuilder SetTrackNumber(int number){
         item161.setTrackNb(number);
         return this;
     }
-    public AsterixCat10Builder SetReportDesc(){
+    public AsterixCat10LightPSRBuilder SetReportDesc(){
         item020.setTyp(Cat010Item020.TYP.ModeSMultilateration);
         return this;
     }
-    public AsterixCat10Builder SetTrackStatus(){
+    public AsterixCat10LightPSRBuilder SetTrackStatus(){
         item170.setCnf(Cat010Item170.CNF.TrackInInitialisationPhase);
         return this;
     }
-    public AsterixCat10Builder SetGlobalPoint(GlobalPoint point){
+    public AsterixCat10LightPSRBuilder SetGlobalPoint(GlobalPoint point){
         SetMessageType(Cat010Item000.MessageType.TARGET_REPORT);
         SetTimeOfDay();
         float speedInKnot= point.getVesselSpeed();

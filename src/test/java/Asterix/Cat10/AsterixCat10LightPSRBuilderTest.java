@@ -1,15 +1,13 @@
 package Asterix.Cat10;
 
 import junit.framework.TestCase;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
-public class AsterixCat10BuilderTest extends TestCase {
+public class AsterixCat10LightPSRBuilderTest extends TestCase {
 
     public void testBuild() {
-        AsterixCat10Builder builder= new AsterixCat10Builder();
+        AsterixCat10LightPSRBuilder builder= new AsterixCat10LightPSRBuilder();
         System.out.println(Arrays.toString(builder.fspec));
         byte[] cat010Record=builder.SetDataSourceIdentifier(1,1)
                 .SetMessageType(Cat010Item000.MessageType.EVENT_TRIGGERED_STATUS_MESSAGE)
