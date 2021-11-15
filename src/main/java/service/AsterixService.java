@@ -27,8 +27,8 @@ public class AsterixService extends Thread{
     @SneakyThrows
     @Override
     public void run(){
-        File file= new File("cat10.dat");
-        fos= new FileOutputStream(file);
+//        File file= new File("cat10.dat");
+//        fos= new FileOutputStream(file);
         while(true){
             if(!outTargetQueue.isEmpty()){
                 GlobalPoint processingPoint= outTargetQueue.poll();
@@ -39,7 +39,7 @@ public class AsterixService extends Thread{
                 try{
                     server.sendMessage(Unpooled.wrappedBuffer(cat10Record));
                     log.info("Encode data {}", Hex.encodeHexString(cat10Record));
-                    fos.write(cat10Record);
+//                    fos.write(cat10Record);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
