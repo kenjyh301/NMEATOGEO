@@ -1,4 +1,5 @@
 service\CommonService.class
+Asterix\Cat10\AsterixCat10Type1Builder.class
 Asterix\Cat10\Cat010Item170$TOM.class
 Asterix\Cat10\Cat010Item041.class
 Asterix\Cat10\Cat010Item170$CNF.class
@@ -13,7 +14,6 @@ service\TLLMessageService.class
 Asterix\Cat10\Cat010Item170$STH.class
 Asterix\Cat10\Cat010Item020$SPI.class
 Asterix\Cat10\Cat010Item170$CST.class
-Asterix\Cat10\AsterixCat10Builder.class
 Asterix\Cat10\Cat010Item170$MRS.class
 Asterix\Cat10\Cat010Item170$TCC.class
 connection\TCPClientHandle.class
@@ -26,6 +26,7 @@ Asterix\Cat10\Cat010Item020$RAB.class
 connection\TCPServer.class
 main.class
 model\GlobalPoint$LongPart.class
+Asterix\Cat10\Cat010Item090.class
 Asterix\Cat10\Cat010Item140.class
 Asterix\Cat10\Cat010Item020$CRT.class
 model\DataQueue.class
@@ -45,6 +46,7 @@ Asterix\Cat10\Cat010Item161.class
 Asterix\Cat10\Cat010Item000.class
 model\NMEAMessage.class
 Asterix\Cat10\Cat010Item020$LOP.class
+Asterix\Cat10\AsterixCat10LightPSRTrackBuilder.class
 Asterix\Cat10\Cat010Item170$GHO.class
 Asterix\Cat10\Cat010Item020.class
 service\GPSMessageService.class

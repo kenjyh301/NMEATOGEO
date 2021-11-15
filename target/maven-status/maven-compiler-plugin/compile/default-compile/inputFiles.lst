@@ -2,6 +2,7 @@ F:\WORK\VIETTEL\NMEATOGEO\src\main\java\model\GlobalPoint.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\connection\TCPClientHandle.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\main.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\Cat010Item140.java
+F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\AsterixCat10LightPSRTrackBuilder.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\connection\TCPClient.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\service\TLLMessageService.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\model\DataQueue.java
@@ -14,9 +15,10 @@ F:\WORK\VIETTEL\NMEATOGEO\src\main\java\service\OSDMessageService.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\Cat010Item000.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\model\NMEAMessage.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\service\NMEAMessageService.java
-F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\AsterixCat10Builder.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\Cat010Item161.java
+F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\Cat010Item090.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\Cat010Item200.java
+F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat10\AsterixCat10Type1Builder.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat62\AsterixCat62RecordBuilder.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Config\ReadConfig.java
 F:\WORK\VIETTEL\NMEATOGEO\src\main\java\Asterix\Cat62\Item070.java

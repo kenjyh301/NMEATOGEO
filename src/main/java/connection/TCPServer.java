@@ -2,12 +2,14 @@ package connection;
 
 import Config.ReadConfig;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayDecoder;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -54,7 +56,8 @@ public class TCPServer extends Thread{
         }
     }
 
-    public void sendMessage(String message){
+
+    public void sendMessage(ByteBuf message){
         handle.sendMessage(message);
     }
 

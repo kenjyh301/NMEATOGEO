@@ -4,10 +4,10 @@ import junit.framework.TestCase;
 
 import java.util.Arrays;
 
-public class AsterixCat10LightPSRBuilderTest extends TestCase {
+public class AsterixCat10LightPSRTrackBuilderTest extends TestCase {
 
     public void testBuild() {
-        AsterixCat10LightPSRBuilder builder= new AsterixCat10LightPSRBuilder();
+        AsterixCat10LightPSRTrackBuilder builder= new AsterixCat10LightPSRTrackBuilder();
         System.out.println(Arrays.toString(builder.fspec));
         byte[] cat010Record=builder.SetDataSourceIdentifier(1,1)
                 .SetMessageType(Cat010Item000.MessageType.EVENT_TRIGGERED_STATUS_MESSAGE)

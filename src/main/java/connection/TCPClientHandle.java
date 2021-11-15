@@ -2,18 +2,16 @@ package connection;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import model.NMEAMessage;
+import org.apache.commons.codec.binary.Hex;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static model.DataQueue.receiveMessageQueue;
@@ -26,6 +24,7 @@ public class TCPClientHandle extends ChannelInboundHandlerAdapter {
     List<String> buffer= new ArrayList<>();
     final int messageLenMax=100;
     List<Byte> header= new ArrayList<Byte>();
+
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         header.add((byte)'$');
@@ -35,11 +34,11 @@ public class TCPClientHandle extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
+//        FileOutputStream fos= new FileOutputStream("encodeData");
         ByteBuf byteBuf= (ByteBuf) msg;
         byte[] bytes= ByteBufUtil.getBytes(byteBuf);
         String str= new String(bytes, StandardCharsets.UTF_8);
-        log.trace("Receive new tcp message {}",str);
+        log.trace("Receive new tcp message {}", Hex.encodeHexString(bytes));
 //        System.out.print(str);
         Process(bytes);
 

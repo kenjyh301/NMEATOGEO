@@ -1,6 +1,6 @@
 package Asterix.Cat10;
 
-import jlg.jade.asterix.cat048.*;
+import jlg.jade.asterix.cat048.Cat048Item010;
 import lombok.extern.slf4j.Slf4j;
 import model.GlobalPoint;
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,7 +13,7 @@ import java.util.Collections;
 
 @Slf4j
 //@Data
-public class AsterixCat10LightPSRBuilder {
+public class AsterixCat10LightPSRTrackBuilder {
     private Cat048Item010 item010;
     private Cat010Item000 item000;
     private Cat010Item020 item020;
@@ -28,10 +28,11 @@ public class AsterixCat10LightPSRBuilder {
     private final int LENSIZE=2;
     private final float speedLSB=(float)6.103E-5D; // unit knot
     private final float angleLSB=(float)0.0055; // unit degree
+    private final float timeLSB= (float)(1.0/128.0); // LSB of time 1/128 second
 
     public void SetFspec(int index){
         int byteIndex= (index-1)/8;
-        int bitIndex=(index-1)%8;
+        int bitIndex=7-(index-1)%8;
         fspec[byteIndex]=(byte)(fspec[byteIndex]|(1<<bitIndex));
     }
     public void SetFspecFx(){
@@ -41,11 +42,11 @@ public class AsterixCat10LightPSRBuilder {
             if(fspec[fspecEndIndex]==0)break;
         }
         for(int i=0;i<fspecEndIndex-1;i++){
-            fspec[i]=(byte)(fspec[i]|(1<<7));
+            fspec[i]=(byte)(fspec[i]|1);
         }
     }
 //    private Cat034Item000 test;
-    public AsterixCat10LightPSRBuilder(){
+    public AsterixCat10LightPSRTrackBuilder(){
         fspec= new byte[5];
         Arrays.fill(fspec,(byte)0);
         item010= new Cat048Item010();
@@ -65,54 +66,55 @@ public class AsterixCat10LightPSRBuilder {
         item170= new Cat010Item170();
         SetFspec(Fspec.CAT10_170);
         SetFspecFx();
+
     }
 
-    public AsterixCat10LightPSRBuilder SetDataSourceIdentifier(int sic, int sac){
+    public AsterixCat10LightPSRTrackBuilder SetDataSourceIdentifier(int sic, int sac){
         item010.setSic(sic);
         item010.setSac(sac);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetMessageType(Cat010Item000.MessageType type){
+    public AsterixCat10LightPSRTrackBuilder SetMessageType(Cat010Item000.MessageType type){
         item000.SetMessageType(type);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTimeOfDay(int time){
+    public AsterixCat10LightPSRTrackBuilder SetTimeOfDay(int time){
         item140.setTime(time);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTimeOfDay(){
+    public AsterixCat10LightPSRTrackBuilder SetTimeOfDay(){
         LocalDateTime date = LocalDateTime.now();
         int seconds = date.toLocalTime().toSecondOfDay();
-        item140.setTime(seconds);
+        item140.setTime((int)(seconds/timeLSB));
         return this;
     }
 
-    public AsterixCat10LightPSRBuilder SetWGS84Coord(int latitude, int longitude){
+    public AsterixCat10LightPSRTrackBuilder SetWGS84Coord(int latitude, int longitude){
         item041.setLatitudeWsg84(latitude);
         item041.setLongitudeWsg84(longitude);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTrackVelocity(int value){
+    public AsterixCat10LightPSRTrackBuilder SetTrackVelocity(int value){
         item200.setCalculatedGroundSpeed(value);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTrackHeading(int value){
+    public AsterixCat10LightPSRTrackBuilder SetTrackHeading(int value){
         item200.setCalculatedHeading(value);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTrackNumber(int number){
+    public AsterixCat10LightPSRTrackBuilder SetTrackNumber(int number){
         item161.setTrackNb(number);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetReportDesc(){
+    public AsterixCat10LightPSRTrackBuilder SetReportDesc(){
         item020.setTyp(Cat010Item020.TYP.ModeSMultilateration);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetTrackStatus(){
+    public AsterixCat10LightPSRTrackBuilder SetTrackStatus(){
         item170.setCnf(Cat010Item170.CNF.TrackInInitialisationPhase);
         return this;
     }
-    public AsterixCat10LightPSRBuilder SetGlobalPoint(GlobalPoint point){
+    public AsterixCat10LightPSRTrackBuilder SetGlobalPoint(GlobalPoint point){
         SetMessageType(Cat010Item000.MessageType.TARGET_REPORT);
         SetTimeOfDay();
         float speedInKnot= point.getVesselSpeed();

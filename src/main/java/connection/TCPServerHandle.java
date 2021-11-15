@@ -1,7 +1,7 @@
 package connection;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
@@ -9,7 +9,6 @@ import io.netty.util.concurrent.EventExecutor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.SocketAddress;
-import java.nio.charset.StandardCharsets;
 
 @ChannelHandler.Sharable
 @Slf4j
@@ -243,7 +242,8 @@ public class TCPServerHandle extends ChannelInboundHandlerAdapter {
 
     }
 
-    public void sendMessage(String message){
-        ctx.writeAndFlush(Unpooled.copiedBuffer(message,StandardCharsets.UTF_8));
+
+    public void sendMessage(ByteBuf message){
+        ctx.writeAndFlush(message);
     }
 }

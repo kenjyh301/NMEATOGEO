@@ -23,8 +23,8 @@ public class mainTest extends TestCase {
         server.start();
         while(true){
 
-            server.sendMessage("abcdefghijklmnopqrstuvsdklfjsldkfjsdfklsdjfoqjfsldkfjslkjls;djfiosujfs;lfjadfliajflkdsfj" +
-                    "sdl;fjsalkdfsdjl;flsjdfl;ksjdflskjdflksjdfl;ksjdfl;ksdjfsl;kdfjkasjdifelfk;aldskjfs;alkdjfal;kdjfi");
+//            server.sendMessage("abcdefghijklmnopqrstuvsdklfjsldkfjsdfklsdjfoqjfsldkfjslkjls;djfiosujfs;lfjadfliajflkdsfj" +
+//                    "sdl;fjsalkdfsdjl;flsjdfl;ksjdflskjdflksjdfl;ksjdfl;ksdjfsl;kdfjkasjdifelfk;aldskjfs;alkdjfal;kdjfi");
             log.info("Message sent");
             Thread.sleep(1000);
         }
@@ -32,10 +32,9 @@ public class mainTest extends TestCase {
 
     public void testClient() throws InterruptedException {
         TCPClient client= new TCPClient(ReadConfig.projectConfig.getTCPHost()
-                ,ReadConfig.projectConfig.getTCPPort());
+                ,5353);
         client.start();
         while(true){
-
 
             Thread.sleep(100);
         }
